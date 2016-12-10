@@ -1,0 +1,31 @@
+#!/bin/sh
+# [Gedit Tool]
+# Save-files=all
+# Output=nothing
+# Applicability=all
+# Name=Session Save
+# Input=document
+# Shortcut=<Primary><Alt>s
+
+mkdir -p ~/Projects/Gedit-Sessions/
+session_num=`ls -l ~/Projects/session* 2> /dev/null | wc -l`
+CH1="Create New Session "
+CH2="Save Existing Session "
+CHOICHE=
+
+while [ -z "$CHOICHE" ]; do
+	CHOICHE=`zenity --list --title="Save Session" --text="Save Session" --width=640 --height=640 --column=Documents  "$CH1" "$CH2"`
+	if [ "$CHOICHE" = "$CH1" ]; then
+		DIR=`zenity --file-selection --title='Save Session As...' --directory --filename="$HOME/Projects/Gedit-Sessions/"`
+		FILE=`zenity --entry --width=640 --height=640 --title='Save Session As...'`
+		echo $GEDIT_DOCUMENTS_PATH > $DIR/$FILE
+		echo "Saved session to "$DIR/$FILE""
+	elif [ "$CHOICHE" = "$CH2" ]; then
+		FILE=`zenity --file-selection --title='Save Session As...' --filename="$HOME/Projects/Gedit-Sessions/"`
+	  	echo $GEDIT_DOCUMENTS_PATH > $FILE
+		echo "Saved session to $FILE"
+	  elif [ -z "$CHOICHE" ]; then
+	  	echo "Aborted"
+    		exit 
+  	fi
+done

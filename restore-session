@@ -1,0 +1,14 @@
+#!/bin/sh
+# [Gedit Tool]
+# Save-files=nothing
+# Output=nothing
+# Applicability=all
+# Name=Session Restore
+# Input=document
+# Shortcut=<Primary><Alt>r
+
+FILE=`zenity --file-selection --title="Restore Session " --filename=$HOME/Projects/Gedit-Sessions/`
+if [ ! -z "$FILE" ]; then
+	cat $FILE  | xargs gedit --new-window
+	echo "Restored Session from " $FILE
+fi
