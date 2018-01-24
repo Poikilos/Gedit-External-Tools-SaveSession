@@ -8,7 +8,7 @@
 # Shortcut=<Primary><Alt>a
 
 sessions_path="$HOME/.config/Gedit-Sessions"
-current_name_path="$sessions_path/.current_name"
+current_session_path_path="$sessions_path/.current_session_path"
 if [ ! -d "$sessions_path" ]; then
   mkdir -p "$sessions_path"
 fi
@@ -20,16 +20,16 @@ fi
 FILE="$sessions_path/$(uuidgen)"
 echo $GEDIT_DOCUMENTS_PATH > $FILE
 if [ -f "$FILE" ]; then
-  msg="Saved as '$FILE'. Rename file manually using your favorite file manager or terminal if desired (you must also change the name in '$current_name_path' if you rename the session currently loaded)."
+  msg="Saved as '$FILE'. Rename file manually using your favorite file manager or terminal if desired (you must also change the name in '$current_session_path_path' if you rename the session currently loaded)."
   echo "$msg"
-  echo "$FILE" > "$current_name_path"
-  if [ -f "$current_name_path" ]; then
-    current_name=`cat "$current_name_path"`
-    if [ ! -f "$current_name" ]; then
-      msg="ERROR in Session Save As: Could not write path (got unreadable path '$current_name') correctly to file '$current_name_path'--make sure that file is writeable."
+  echo "$FILE" > "$current_session_path_path"
+  if [ -f "$current_session_path_path" ]; then
+    current_session_path=`cat "$current_session_path_path"`
+    if [ ! -f "$current_session_path" ]; then
+      msg="ERROR in Session Save As: Could not write path (got unreadable path '$current_session_path') correctly to file '$current_session_path_path'--make sure that file is writeable."
     fi
   else
-    msg="ERROR in Session Save As: Could not write current session path to '$current_name_path'. Make sure the path is writeable."
+    msg="ERROR in Session Save As: Could not write current session path to '$current_session_path_path'. Make sure the path is writeable."
     echo "$msg"
     zenity --error --text="$msg"
   fi

@@ -8,17 +8,17 @@
 # Shortcut=<Primary><Alt>s
 
 sessions_path="$HOME/.config/Gedit-Sessions"
-current_name_path="$sessions_path/.current_name"
+current_session_path_path="$sessions_path/.current_session_path"
 if [ ! -d "$sessions_path" ]; then
   mkdir -p "$sessions_path"
 fi
-if [ -f "$current_name_path" ]; then
-  FILE=`cat "$current_name_path"`
+if [ -f "$current_session_path_path" ]; then
+  FILE=`cat "$current_session_path_path"`
     echo $GEDIT_DOCUMENTS_PATH > $FILE
   if [ -f "$FILE" ]; then
     echo "Saved session to "$FILE""
   else
-    zenity --error --text="ERROR in Session Save: could not save current session '$FILE'. Try editing '$current_name_path' and make sure it contains only a full and writable file path (normally in the same folder)."
+    zenity --error --text="ERROR in Session Save: could not save current session '$FILE'. Try editing '$current_session_path_path' and make sure it contains only a full and writable file path (normally in the same folder)."
   fi
 else
   if [ -f "session-save-as" ]; then

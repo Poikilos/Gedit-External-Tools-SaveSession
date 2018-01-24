@@ -8,16 +8,16 @@
 # Shortcut=<Primary><Alt>r
 
 sessions_path="$HOME/.config/Gedit-Sessions"
-current_name_path="$sessions_path/.current_name"
+current_session_path_path="$sessions_path/.current_session_path"
 if [ -d "$sessions_path" ]; then
   FILE=`zenity --file-selection --title="Restore Session" --filename="$sessions_path"`
   if [ ! -z "$FILE" ]; then
-    if [ "$FILE" == "$current_name_path" ]; then
+    if [ "$FILE" == "$current_session_path_path" ]; then
       zenity --error --text="ERROR in Session Restore: '$FILE' is the configuration file for Session Restore, not a session. Try choosing another file."
     else
       cat "$FILE"  | xargs gedit --new-window
       echo "Restored Session from '$FILE'"
-      echo "$FILE" > "$current_name_path"
+      echo "$FILE" > "$current_session_path_path"
     fi
   else
     file_msg="empty or inaccessible"
