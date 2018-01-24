@@ -20,7 +20,7 @@ fi
 FILE="$sessions_path/$(uuidgen)"
 echo $GEDIT_DOCUMENTS_PATH > $FILE
 if [ -f "$FILE" ]; then
-  msg="Saved as '$FILE'. Rename file manually using your favorite file manager or terminal if desired."
+  msg="Saved as '$FILE'. Rename file manually using your favorite file manager or terminal if desired (you must also change the name in '$current_name_path' if you rename the session currently loaded)."
   echo "$msg"
   echo "$FILE" > "$current_name_path"
   if [ -f "$current_name_path" ]; then
