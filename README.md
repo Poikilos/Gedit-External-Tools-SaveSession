@@ -1,20 +1,38 @@
-This repo is to setup a plugin for Saving and Restoring a session with Gedit
+# Gedit-External-Tools-SaveSession
+Save and Restore sessions with Gedit (External Tools via hotkeys)
 
-**Installation**
-You need to install the **gedit-plugins** package and enable the **External-tool**
-plugin
+## Installation
+* Requires:  **gedit-plugins**, **qarma** (or zentity) packages
+* Download and install from the web:
+```
+mkdir -p ~/.config/gedit/tools
+cd "$HOME/Downloads"
+# cd ~/.config/gedit/tools
+# git clone https://github.com/89luca89/Gedit-External-Tools-Session
+# or
+git clone https://github.com/expertmm/Gedit-External-Tools-SaveSession.git
+cd Gedit-External-Tools-SaveSession
+chmod +x install
+./install
+```
+* restart gedit
+* enable the **External-tools** plugin in menu button, Preferences, Plugins
+* menu button, Manage External Tools
+* click each "Session" plugin and set the hotkey (by clicking the blank hotkey field):
+  * Session Save As: Ctrl Alt A (make a new session)
+  * Session Save: Ctrl Alt S (Save using last saved or loaded session name)
+  * Session Restore: Ctrl Alt R (restore named session by choosing session file from $HOME/.config/Gedit-Sessions
+* Now you can enjoy this plugin! 
 
-Then you need to copy the repo :
+## Changes in expertmm Fork
+(2018-01-23)
+* Session is named with GUID in case of desktops where zenity or qarma do not support the `--save` option (which silently fails and instead shows an open dialog) -- see also <https://github.com/luebking/qarma/issues/25>
+* changed data folder from `$HOME/Projects/Gedit-Sessions` to `$HOME/.config/Gedit-Sessions`
+* save most recent session file in $HOME/Projects/Gedit-Sessions/.current-name
 
-	`mkdir -p ~/.config/gedit/tools`
-	`cd ~/.config/gedit/tools`
-	`git clone https://github.com/89luca89/Gedit-External-Tools-Session`
+## Screenshots
 
-
-After that, open gedit and enable the **External-tool** plugin
-
-Now you can enjoy this plugin!
-`Ctrl+Alt+R will prompt to restore a session`
+  `Ctrl+Alt+R will prompt to restore a session`
 
 ![photo_2016-12-10_19-11-18](https://cloud.githubusercontent.com/assets/598882/21075211/825b7d64-bf0c-11e6-8308-0ee638f4d52a.jpg)
 
