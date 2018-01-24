@@ -1,0 +1,29 @@
+#!/bin/sh
+# [Gedit Tool]
+# Name=Session Save
+# Input=nothing
+# Output=output-panel
+# Applicability=all
+# Save-files=nothing
+# Shortcut=<Primary><Alt>s
+
+sessions_path="$HOME/.config/Gedit-Sessions"
+current_name_path="$sessions_path/.current_name"
+if [ ! -d "$sessions_path" ]; then
+  mkdir -p "$sessions_path"
+fi
+if [ -f "$current_name_path" ]; then
+  session_path=`cat "$current_name_path"`
+  if [ -f "$session_path" ]; then
+    echo $GEDIT_DOCUMENTS_PATH > $session_path
+    echo "Saved session to "$session_path""
+  else
+    zenity --error --text="ERROR in Session Save: could not find session path '$session_path'. Try editing '$current_name_path' and make sure it contains only a full path to a real session in the same folder"
+  fi
+else
+  if [ -f session-save-as ]; then
+    sh session-save-as
+  else
+    zenity --error --text="Do 'Ctrl Alt A' to 'Save Session As' first."
+  fi
+fi

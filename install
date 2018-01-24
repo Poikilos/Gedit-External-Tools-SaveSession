@@ -1,0 +1,18 @@
+tools_path="$HOME/.config/gedit/tools"
+if [ ! -d "$tools_path" ]; then mkdir -p "$tools_path"; fi
+if [ ! -f session-save ]; then
+  echo "ERROR: Nothing done since install must be run from the gedit-sessionsaver repository folder where it is located"
+  exit 1
+fi
+if [ -f "$tools_path/restore-session" ]; then
+  if [ ! -d rollback ]; then mkdir rollback; fi
+  mv -f "$tools_path/restore-session" rollback/
+fi
+if [ -f "$tools_path/save-session" ]; then
+  if [ ! -d rollback ]; then mkdir rollback; fi
+  mv -f "$tools_path/save-session" rollback/
+fi
+
+cp -f session-save "$tools_path/"
+cp -f session-save-as "$tools_path/"
+cp -f session-restore "$tools_path/"

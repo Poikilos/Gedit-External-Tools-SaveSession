@@ -1,0 +1,31 @@
+#!/bin/sh
+# [Gedit Tool]
+# Name=Session Restore
+# Input=nothing
+# Output=output-panel
+# Applicability=all
+# Save-files=nothing
+# Shortcut=<Primary><Alt>r
+
+sessions_path="$HOME/.config/Gedit-Sessions"
+current_name_path="$sessions_path/.current_name"
+if [ -d "$sessions_path" ]; then
+  FILE=`zenity --file-selection --title="Restore Session" --filename="$sessions_path"`
+  if [ ! -z "$FILE" ]; then
+    if [ "$FILE" == "$current_name_path" ]; then
+      zenity --error --text="ERROR in Session Restore: '$FILE' is the configuration file for Session Restore, not a session. Try choosing another file."
+    else
+      cat $FILE  | xargs gedit --new-window
+      echo "Restored Session from '$FILE'"
+      echo "$FILE" > "$current_name_path"
+    fi
+  else
+    file_msg="empty or inaccessible"
+    if [ ! -f "FILE" ]; then
+      file_msg="missing"
+    fi
+    zenity --error --text="ERROR in Session Restore: Session file '$FILE' is $file_msg."
+  fi
+else
+  zenity --error --text="ERROR in Session Restore: You did not save any sessions yet (no '$sessions_path'). Try opening some files then do Ctrl Alt S"
+fi

@@ -1,0 +1,26 @@
+#!/bin/sh
+# [Gedit Tool]
+# Name=Session Save As
+# Input=nothing
+# Output=output-panel
+# Applicability=all
+# Save-files=nothing
+# Shortcut=<Primary><Alt>a
+
+sessions_path="$HOME/.config/Gedit-Sessions"
+current_name_path="$sessions_path/.current_name"
+if [ ! -d "$sessions_path" ]; then
+  mkdir -p "$sessions_path"
+fi
+# FILE=
+# if [ -f "$(command -v qarma)"]; then
+# FILE=`zenity --file-selection --save --title='Save Session As...' --filename="$HOME/Gedit-Sessions/"`
+# qarma-git (qarma is a drop-in replacement for zenity) does not honor --save for some reason (only allows choosing an existing file, and has open button), so:
+FILE="$sessions_path/$(uuidgen)"
+if [ ! -z "$FILE" ]; then
+  echo $GEDIT_DOCUMENTS_PATH > $FILE
+  echo "Saved session to "$FILE""
+  echo "$FILE" > "$current_name_path"
+  echo "$FILE" > "$HOME/Gedit-Sessions/current"
+  zenity --info --text="Saved as '$FILE'. Rename file manually if desired."
+fi
