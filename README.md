@@ -3,15 +3,15 @@ Save and Restore sessions with Gedit (External Tools via hotkeys)
 
 ## Installation
 * Requires:  **gedit-plugins**, **qarma** (or zentity) packages
-* Download and install from the web:
+* Download and install latest version of Gedit-External-Tools-SaveSession (paste the following in to a terminal):
 ```
-mkdir -p ~/.config/gedit/tools
-cd "$HOME/Downloads"
-# cd ~/.config/gedit/tools
-# git clone https://github.com/89luca89/Gedit-External-Tools-Session
-# or
-git clone https://github.com/expertmm/Gedit-External-Tools-SaveSession.git
-cd Gedit-External-Tools-SaveSession
+# unique folder so it doesn't erase other stuff you may be working on;
+THIS_MAINTAINER=expertmm
+if [ ! -d "$HOME/Downloads/$THIS_MAINTAINER" ]; then mkdir -p "$HOME/Downloads/$THIS_MAINTAINER"; fi
+cd "$HOME/Downloads/$THIS_MAINTAINER"
+if [ -d "Gedit-External-Tools-SaveSession" ]; then rm -Rf "Gedit-External-Tools-SaveSession"; fi
+git clone https://github.com/$THIS_MAINTAINER/Gedit-External-Tools-SaveSession.git
+cd "Gedit-External-Tools-SaveSession"
 chmod +x install
 ./install
 ```
