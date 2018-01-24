@@ -1,3 +1,4 @@
+#!/bin/sh
 tools_path="$HOME/.config/gedit/tools"
 if [ ! -d "$tools_path" ]; then mkdir -p "$tools_path"; fi
 if [ ! -f session-save ]; then
