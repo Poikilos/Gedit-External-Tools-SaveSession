@@ -15,12 +15,24 @@ fi
 # FILE=
 # if [ -f "$(command -v qarma)"]; then
 # FILE=`zenity --file-selection --save --title='Save Session As...' --filename="$HOME/Gedit-Sessions/"`
+# if [ ! -z "$FILE" ]; then
 # qarma-git (qarma is a drop-in replacement for zenity) does not honor --save for some reason (only allows choosing an existing file, and has open button), so:
 FILE="$sessions_path/$(uuidgen)"
-if [ ! -z "$FILE" ]; then
-  echo $GEDIT_DOCUMENTS_PATH > $FILE
-  echo "Saved session to "$FILE""
+echo $GEDIT_DOCUMENTS_PATH > $FILE
+if [ -f "$FILE" ]; then
+  msg="Saved as '$FILE'. Rename file manually using your favorite file manager or terminal if desired."
+  echo "$msg"
   echo "$FILE" > "$current_name_path"
-  echo "$FILE" > "$HOME/Gedit-Sessions/current"
-  zenity --info --text="Saved as '$FILE'. Rename file manually if desired."
+  if [ -f "$current_name_path" ]; then
+    current_name=`cat "$current_name_path"`
+    if [ ! -f "$current_name" ]; then
+      msg="ERROR in Session Save As: Could not write path (got unreadable path '$current_name') correctly to file '$current_name_path'--make sure that file is writeable."
+    fi
+  else
+    msg="ERROR in Session Save As: Could not write current session path to '$current_name_path'. Make sure the path is writeable."
+    echo "$msg"
+    zenity --error --text="$msg"
+  fi
+else
+  zenity --error --text="ERROR in Session Save As: Could not write '$FILE'. Make sure the path is writeable."
 fi

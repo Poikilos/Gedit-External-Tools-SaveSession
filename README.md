@@ -26,9 +26,10 @@ chmod +x install
 
 ## Changes in expertmm Fork
 (2018-01-23)
-* Session is named with GUID in case of desktops where zenity or qarma do not support the `--save` option (which silently fails and instead shows an open dialog) -- see also <https://github.com/luebking/qarma/issues/25>
+* Session is named with GUID in case of desktops (such as Xfce4) where zenity or qarma do not support the `--save` option (which silently fails and instead shows an open dialog) -- see also <https://github.com/luebking/qarma/issues/25>
 * changed data folder from `$HOME/Projects/Gedit-Sessions` to `$HOME/.config/Gedit-Sessions`
 * save most recent session file in $HOME/Projects/Gedit-Sessions/.current-name
+* use quotes for all paths (replace ~ with $HOME since that changes is necessary in quotes)
 
 ## Screenshots
 

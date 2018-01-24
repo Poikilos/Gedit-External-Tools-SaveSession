@@ -13,16 +13,16 @@ if [ ! -d "$sessions_path" ]; then
   mkdir -p "$sessions_path"
 fi
 if [ -f "$current_name_path" ]; then
-  session_path=`cat "$current_name_path"`
-  if [ -f "$session_path" ]; then
-    echo $GEDIT_DOCUMENTS_PATH > $session_path
-    echo "Saved session to "$session_path""
+  FILE=`cat "$current_name_path"`
+    echo $GEDIT_DOCUMENTS_PATH > $FILE
+  if [ -f "$FILE" ]; then
+    echo "Saved session to "$FILE""
   else
-    zenity --error --text="ERROR in Session Save: could not find session path '$session_path'. Try editing '$current_name_path' and make sure it contains only a full path to a real session in the same folder"
+    zenity --error --text="ERROR in Session Save: could not save current session '$FILE'. Try editing '$current_name_path' and make sure it contains only a full and writable file path (normally in the same folder)."
   fi
 else
-  if [ -f session-save-as ]; then
-    sh session-save-as
+  if [ -f "session-save-as" ]; then
+    sh "session-save-as"
   else
     zenity --error --text="Do 'Ctrl Alt A' to 'Save Session As' first."
   fi
