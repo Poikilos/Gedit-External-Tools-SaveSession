@@ -13,12 +13,13 @@ if [ -d "$sessions_path" ]; then
   FILE=`zenity --file-selection --title="Restore Session" --filename="$sessions_path"`
   if [ ! -z "$FILE" ]; then
     if [ "$FILE" == "$current_session_path_path" ]; then
-      zenity --error --text="ERROR in Session Restore: '$FILE' is the configuration file for Session Restore, not a session. Try choosing another file."
-    else
-      cat "$FILE"  | xargs gedit --new-window
-      echo "Restored Session from '$FILE'"
-      echo "$FILE" > "$current_session_path_path"
+      # zenity --error --text="ERROR in Session Restore: '$FILE' is the configuration file for Session Restore, not a session. Try choosing another file."
+      # is the session file (that contains the name of the file that contains the names of the files) so unwind one step first:
+      FILE=`cat "$FILE"`
     fi
+    cat "$FILE"  | xargs gedit --new-window
+    echo "Restored Session from '$FILE'"
+    echo "$FILE" > "$current_session_path_path"
   else
     file_msg="empty or inaccessible"
     if [ ! -f "$FILE" ]; then
