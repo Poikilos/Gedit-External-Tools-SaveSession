@@ -5,7 +5,7 @@ Save and Restore sessions with Gedit (External Tools via hotkeys)
 * Requires:  **gedit-plugins**, **qarma** (or zentity) packages
 * Download and install latest version of Gedit-External-Tools-SaveSession (paste the following in to a terminal):
 ```
-# unique folder so it doesn't erase other stuff you may be working on;
+#unique folder so it doesn't erase other stuff you may be working on;
 THIS_MAINTAINER=expertmm
 if [ ! -d "$HOME/Downloads/$THIS_MAINTAINER" ]; then mkdir -p "$HOME/Downloads/$THIS_MAINTAINER"; fi
 cd "$HOME/Downloads/$THIS_MAINTAINER"
@@ -17,14 +17,20 @@ chmod +x install
 ```
 * restart gedit
 * enable the **External-tools** plugin in menu button, Preferences, Plugins
+* Now you can enjoy this plugin (the shortcut keys are automatically loaded from the comments in the scripts)!
+
+## Usage
+* Session Save As: Ctrl Alt A (make a new session)
+* Session Save: Ctrl Alt S (Save using last saved or loaded session name--has no way to save in RAM, so saves in file--therefore never do Ctrl Alt S when you have opened a second session in another Gedit window)
+* Session Restore: Ctrl Alt R (restore named session by choosing session file from $HOME/.config/Gedit-Sessions
+
+## How to change shortcut keys
 * menu button, Manage External Tools
-* click each "Session" plugin and set the hotkey (by clicking the blank hotkey field):
-  * Session Save As: Ctrl Alt A (make a new session)
-  * Session Save: Ctrl Alt S (Save using last saved or loaded session name)
-  * Session Restore: Ctrl Alt R (restore named session by choosing session file from $HOME/.config/Gedit-Sessions
-* Now you can enjoy this plugin! 
+* click a "Session" plugin and set the hotkey (by clicking the blank hotkey field)
 
 ## Changes in expertmm Fork
+(2018-02-06)
+* quote paths so these tools work with paths that contain any characters that interrupt space-separated paths unless quoted, such as spaces, parenthesis, or apostraphes
 (2018-01-23)
 * Session is named with GUID in case of desktops (such as Xfce4) where zenity or qarma do not support the `--save` option (which silently fails and instead shows an open dialog) -- see also <https://github.com/luebking/qarma/issues/25>
 * changed data folder from `$HOME/Projects/Gedit-Sessions` to `$HOME/.config/Gedit-Sessions`

@@ -14,7 +14,33 @@ if [ ! -d "$sessions_path" ]; then
 fi
 if [ -f "$current_session_path_path" ]; then
   FILE=`cat "$current_session_path_path"`
-    echo $GEDIT_DOCUMENTS_PATH > $FILE
+  QUOTED_PATHS="\""
+  #IFS=$' '  # Internal Field Separator
+  build_spacey_path=""
+  for this_path in $GEDIT_DOCUMENTS_PATH
+  do
+    if [ ! -z "$this_path" ]; then
+      delimiter="\" \""
+      if [ "$QUOTED_PATHS" = "\"" ]; then
+        delimiter=""
+      fi
+      if [ -f "$this_path" ]; then
+        QUOTED_PATHS="$QUOTED_PATHS$delimiter$this_path"
+      else
+        if [ ! -z "$build_spacey_path" ]; then
+          build_spacey_path="$build_spacey_path$this_path"
+          if [ -f "$build_spacey_path" ]; then
+            QUOTED_PATHS="$QUOTED_PATHS$delimiter$build_spacey_path"
+            build_spacey_path=""
+          fi
+        else
+          build_spacey_path="$this_path "
+        fi
+      fi
+    fi
+  done
+  QUOTED_PATHS="$QUOTED_PATHS\""
+  echo $QUOTED_PATHS > $FILE
   if [ -f "$FILE" ]; then
     echo "Saved session to "$FILE""
   else

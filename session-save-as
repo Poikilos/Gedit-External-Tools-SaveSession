@@ -17,22 +17,63 @@ fi
 # FILE=`zenity --file-selection --save --title='Save Session As...' --filename="$HOME/Gedit-Sessions/"`
 # if [ ! -z "$FILE" ]; then
 # qarma-git (qarma is a drop-in replacement for zenity) does not honor --save for some reason (only allows choosing an existing file, and has open button), so:
-FILE="$sessions_path/$(uuidgen)"
-echo $GEDIT_DOCUMENTS_PATH > $FILE
-if [ -f "$FILE" ]; then
-  msg="Saved as '$FILE'. Rename file manually using your favorite file manager or terminal if desired (you must also change the name in '$current_session_path_path' if you rename the session currently loaded)."
-  echo "$msg"
-  echo "$FILE" > "$current_session_path_path"
-  if [ -f "$current_session_path_path" ]; then
-    current_session_path=`cat "$current_session_path_path"`
-    if [ ! -f "$current_session_path" ]; then
-      msg="ERROR in Session Save As: Could not write path (got unreadable path '$current_session_path') correctly to file '$current_session_path_path'--make sure that file is writeable."
+session_name=$(zenity --entry --title="Gedit-External-Tools-SaveSession" --text="Please enter a new name for this session:")
+# if [ -z "$session_name" ]; then
+  # FILE="$sessions_path/$(uuidgen)"
+# fi
+if [ ! -z "$session_name" ]; then
+  FILE="$sessions_path/$session_name"
+  QUOTED_PATHS="\""
+  #IFS=$' '  # Internal Field Separator
+  for this_path in $GEDIT_DOCUMENTS_PATH
+  do
+    if [ ! -z "$this_path" ]; then
+      delimiter="\" \""
+      if [ "$QUOTED_PATHS" = "\"" ]; then
+        delimiter=""
+      fi
+      if [ -f "$this_path" ]; then
+        QUOTED_PATHS="$QUOTED_PATHS$delimiter$this_path"
+      else
+        if [ ! -z "$build_spacey_path" ]; then
+          build_spacey_path="$build_spacey_path$this_path"
+          if [ -f "$build_spacey_path" ]; then
+            QUOTED_PATHS="$QUOTED_PATHS$delimiter$build_spacey_path"
+            build_spacey_path=""
+          fi
+        else
+          build_spacey_path="$this_path "
+        fi
+      fi
+    fi
+  done
+  QUOTED_PATHS="$QUOTED_PATHS\""
+  echo $QUOTED_PATHS > $FILE
+  #doesn't work (doesn't modify QUOTED_PATHS):
+  #set -- $GEDIT_DOCUMENTS_PATH
+  #while [ $# -gt 0 ]
+  #do
+  #  QUOTED_PATHS="$QUOTED_PATHS' '$1"
+  #  shift
+  #done
+  if [ -f "$FILE" ]; then
+    msg="Saved as '$FILE'. Rename file manually using your favorite file manager or terminal if desired (you must also change the name in '$current_session_path_path' if you rename the session currently loaded)."
+    echo "$msg"
+    echo "$FILE" > "$current_session_path_path"
+    if [ -f "$current_session_path_path" ]; then
+      current_session_path=`cat "$current_session_path_path"`
+      if [ ! -f "$current_session_path" ]; then
+        msg="ERROR in Session Save As: Could not write path (got unreadable path '$current_session_path') correctly to file '$current_session_path_path'--make sure that file is writeable."
+      fi
+    else
+      msg="ERROR in Session Save As: Could not write current session path to '$current_session_path_path'. Make sure the path is writeable."
+      echo "$msg"
+      zenity --error --text="$msg"
     fi
   else
-    msg="ERROR in Session Save As: Could not write current session path to '$current_session_path_path'. Make sure the path is writeable."
-    echo "$msg"
-    zenity --error --text="$msg"
+    #echo "ERROR Could not write $FILE"
+    zenity --error --text="ERROR in Session Save As: Could not write '$FILE'. Make sure the path is writeable."
   fi
 else
-  zenity --error --text="ERROR in Session Save As: Could not write '$FILE'. Make sure the path is writeable."
+  echo "Session Save As was cancelled by user."
 fi
