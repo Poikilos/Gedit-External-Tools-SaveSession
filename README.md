@@ -6,7 +6,7 @@ Save and Restore sessions with Gedit (External Tools via hotkeys)
 * Download and install latest version of Gedit-External-Tools-SaveSession (paste the following in to a terminal):
 ```
 #unique folder so it doesn't erase other stuff you may be working on;
-THIS_MAINTAINER=expertmm
+THIS_MAINTAINER=poikilos
 if [ ! -d "$HOME/Downloads/$THIS_MAINTAINER" ]; then mkdir -p "$HOME/Downloads/$THIS_MAINTAINER"; fi
 cd "$HOME/Downloads/$THIS_MAINTAINER"
 if [ -d "Gedit-External-Tools-SaveSession" ]; then rm -Rf "Gedit-External-Tools-SaveSession"; fi
@@ -28,7 +28,7 @@ chmod +x install
 * menu button, Manage External Tools
 * click a "Session" plugin and set the hotkey (by clicking the blank hotkey field)
 
-## Changes in expertmm Fork
+## Changes in poikilos Fork
 (2018-02-06)
 * quote paths so these tools work with paths that contain any characters that interrupt space-separated paths unless quoted, such as spaces, parenthesis, or apostraphes
 (2018-01-23)
