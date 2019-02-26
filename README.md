@@ -12,8 +12,7 @@ cd "$HOME/Downloads/$THIS_MAINTAINER"
 if [ -d "Gedit-External-Tools-SaveSession" ]; then rm -Rf "Gedit-External-Tools-SaveSession"; fi
 git clone https://github.com/$THIS_MAINTAINER/Gedit-External-Tools-SaveSession.git
 cd "Gedit-External-Tools-SaveSession"
-chmod +x install
-./install
+bash install.sh
 ```
 * restart gedit
 * enable the **External-tools** plugin in menu button, Preferences, Plugins
