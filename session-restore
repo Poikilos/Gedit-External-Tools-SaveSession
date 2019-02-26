@@ -5,7 +5,7 @@
 # Output=output-panel
 # Applicability=all
 # Save-files=nothing
-# Shortcut=<Primary><Alt>r
+# Shortcut=<Primary><Alt>e
 
 sessions_path="$HOME/.config/Gedit-Sessions"
 current_session_path_path="$sessions_path/.current_session_path"

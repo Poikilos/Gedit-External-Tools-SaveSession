@@ -3,7 +3,9 @@ Save and Restore sessions with Gedit (External Tools via hotkeys)
 
 ## Installation
 * Requires:  **gedit-plugins**, **qarma** (or zentity) packages
-* Download and install latest version of Gedit-External-Tools-SaveSession (paste the following in to a terminal):
+* Download and install latest version of
+  Gedit-External-Tools-SaveSession (paste the following in to a
+  terminal):
 ```
 #unique folder so it doesn't erase other stuff you may be working on;
 THIS_MAINTAINER=poikilos
@@ -15,26 +17,45 @@ cd "Gedit-External-Tools-SaveSession"
 bash install.sh
 ```
 * restart gedit
-* enable the **External-tools** plugin in menu button, Preferences, Plugins
-* Now you can enjoy this plugin (the shortcut keys are automatically loaded from the comments in the scripts)!
+* enable the **External-tools** plugin in menu button, Preferences,
+  Plugins
+* Now you can enjoy this plugin (the shortcut keys are automatically
+  loaded from the comments in the scripts)!
 
 ## Usage
-* Session Save As: Ctrl Alt A (make a new session)
-* Session Save: Ctrl Alt S (Save using last saved or loaded session name--has no way to save in RAM, so saves in file--therefore never do Ctrl Alt S when you have opened a second session in another Gedit window)
-* Session Restore: Ctrl Alt R (restore named session by choosing session file from $HOME/.config/Gedit-Sessions
+* Session Save As: Ctrl Alt v (make a new session)
+* Session Save: Ctrl Alt s (Save using last saved or loaded session
+  name--has no way to save in RAM, so saves in file--therefore never do
+  Ctrl Alt S when you have opened a second session in another Gedit
+  window)
+* Session Restore: Ctrl Alt e (restore named session by choosing session
+  file from $HOME/.config/Gedit-Sessions
+
+(unfortunately, Ctrl Alt a and Ctrl Alt r do not work in KDE, probably
+because they are used by the system, so the shortcut keys have been
+changed to the ones above)
 
 ## How to change shortcut keys
 * menu button, Manage External Tools
-* click a "Session" plugin and set the hotkey (by clicking the blank hotkey field)
+* click a "Session" plugin and set the hotkey (by clicking the blank
+  hotkey field)
 
 ## Changes in poikilos Fork
 (2018-02-06)
-* quote paths so these tools work with paths that contain any characters that interrupt space-separated paths unless quoted, such as spaces, parenthesis, or apostraphes
+* quote paths so these tools work with paths that contain any characters
+  that interrupt space-separated paths unless quoted, such as spaces,
+  parenthesis, or apostraphes
 (2018-01-23)
-* Session is named with GUID in case of desktops (such as Xfce4) where zenity or qarma do not support the `--save` option (which silently fails and instead shows an open dialog) -- see also <https://github.com/luebking/qarma/issues/25>
-* changed data folder from `$HOME/Projects/Gedit-Sessions` to `$HOME/.config/Gedit-Sessions`
-* save most recent session file in $HOME/Projects/Gedit-Sessions/.current-session-path
-* use quotes for all paths (replace ~ with $HOME since that changes is necessary in quotes)
+* Session is named with GUID in case of desktops (such as Xfce4) where
+  zenity or qarma do not support the `--save` option (which silently
+  fails and instead shows an open dialog) -- see also
+  <https://github.com/luebking/qarma/issues/25>
+* changed data folder from `$HOME/Projects/Gedit-Sessions` to
+  `$HOME/.config/Gedit-Sessions`
+* save most recent session file in
+  $HOME/Projects/Gedit-Sessions/.current-session-path
+* use quotes for all paths (replace ~ with $HOME since that changes is
+  necessary in quotes)
 
 ## Screenshots
 
